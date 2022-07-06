@@ -3,13 +3,15 @@ if(process.env.NODE_ENV == "production"){
 }
 
 const sequelize = require("./database/dbconfig")
-const Package = require("./model/Package");
+const Package = require("./models/Package");
 
 // sequelize.sync({ force: true }).then(async () => {
 //     console.log()
 // })
 
-sequelize.sync({ force: true})
+
+
+// sequelize.sync({ force: true})
 const express = require("express")
 const routes = require("./routes/route")
 

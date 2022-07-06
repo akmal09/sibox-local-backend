@@ -1,11 +1,11 @@
 const express = require("express")
 const {
-    getPackage
+    getPackageNumber
 } = require("../controllers/machineController.js");
 
 const router = express.Router();
 
-router.get("/package", getPackage);
+router.get("/package", getPackageNumber);
 
 module.exports = {
     routes : router

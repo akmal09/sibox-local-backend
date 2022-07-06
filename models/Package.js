@@ -1,4 +1,4 @@
-const { Model, DataTypes } = require("sequelize");
+const { Model, DataTypes, Sequelize } = require("sequelize");
 // const { FOREIGNKEYS } = require("sequelize/types/query-types");
 const sequelize = require("../database/dbconfig");
 
@@ -83,6 +83,11 @@ Package.init(
             },
             validate_code:{
                 type: DataTypes.CHAR(6)
+            },
+            import_time:{
+                type :"TIMESTAMP",
+                defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+                allowNull:false
             }
     },
     {

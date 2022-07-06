@@ -6,8 +6,8 @@ class Box extends Model {}
 Box.init(
     {
         id:{
-         type : DataTypes.STRING,
-         primaryKey : true
+            type : DataTypes.STRING,
+            primaryKey : true
         },
         delete_flag:{
             type : DataTypes.INTEGER
@@ -33,7 +33,7 @@ Box.init(
         modules_id:{
             type : DataTypes.STRING
         },
-        box_types_id:{
+        box_type_id:{
             type : DataTypes.STRING
         },
         open_order:{
@@ -46,3 +46,5 @@ Box.init(
         timestamps : true
     }
 );
+
+module.exports = Box;
