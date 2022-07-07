@@ -1,11 +1,9 @@
-const responseObject = function(data){
-    return {
-        code:data,
-        latency:"asdja",
-        message:"asdasfm",
-    }
+const responseData = {
+    code:"",
+    latency:"",
+    message:""
 }
 
 module.exports = {
-    responseData : responseObject
+    responseData : responseData
 }

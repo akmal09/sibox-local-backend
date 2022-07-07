@@ -1,13 +1,10 @@
 const Package = require("../models/Package");
 const axios = require("axios");
 const fetch = require('node-fetch');
+const responseData = require("../helper/response")
 // import axios, * as others from 'axios';
 // const { response } = require("express");
-const responseData = {
-    code:"",
-    latency:"",
-    message:""
-}
+
 
 const getPackageNumber = async (req, res) => {
     const packagesNumber = req.body;
@@ -27,39 +24,23 @@ const getPackageNumber = async (req, res) => {
             }
         }).then(responseApi => {
             // console.log(packagesNumber.body.package_id)
-            responseData.code = 200
-            responseData.latency=responseApi.data.response.latency
-            responseData.message = "OK"
+            responseData.responseData.code = responseApi.data.response.code
+            responseData.responseData.latency=responseApi.data.response.latency
+            responseData.responseData.message = responseApi.data.response.message
             // console.log(responseApi.data)
             res.send({
-                response:responseData,
-                data : {
-                    code : responseApi.data.response.code,
-                    message : responseApi.data.response.message,
-                    data : responseApi.data.data
-                }
+                response : responseData.responseData,
+                data : responseApi.data.data
             })
         })
         .catch(error =>console.log(error))
     }
 
-    
-    
-
-    
-    // await Package.findOne({where: { pahttp://127.0.0.1:8000/check/orderckage_number : packagesNumber} }).then((data) => {
-    //     // console.log(data)
-    // })
-    // res.send({
-    //     packages : packages
-    // })
 };
 
-const dropPackage = async(req, res)=>{
-
+const saveDropPackage = async(req, res)=>{
     const dataPackage = req.body;
     console.log(dataPackage)
-
     // buat mekanisme insert ke database
 };
 

@@ -4,6 +4,7 @@ if(process.env.NODE_ENV == "production"){
 
 const sequelize = require("./database/dbconfig")
 const Package = require("./models/Package");
+const cors = require("cors")
 
 // sequelize.sync({ force: true }).then(async () => {
 //     console.log()
@@ -17,6 +18,13 @@ const routes = require("./routes/route")
 
 const app = express();
 app.use(express.json());
+
+const corsOptions = {
+    origin : "http://localhost:3005",
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions))
 
 app.get("/", (req, resp) => resp.send("application is up and running"))
 
