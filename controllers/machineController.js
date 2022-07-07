@@ -23,7 +23,7 @@ const getPackageNumber = async (req, res) => {
                 "package_number":packagesNumber.package_id
             }
         }).then(responseApi => {
-            // console.log(packagesNumber.body.package_id)
+            console.log(packagesNumber.body.package_id)
             responseData.responseData.code = responseApi.data.response.code
             responseData.responseData.latency=responseApi.data.response.latency
             responseData.responseData.message = responseApi.data.response.message
@@ -32,6 +32,8 @@ const getPackageNumber = async (req, res) => {
                 response : responseData.responseData,
                 data : responseApi.data.data
             })
+            
+    
         })
         .catch(error =>console.log(error))
     }
@@ -41,9 +43,41 @@ const getPackageNumber = async (req, res) => {
 const saveDropPackage = async(req, res)=>{
     const dataPackage = req.body;
     console.log(dataPackage)
-    // buat mekanisme insert ke database
+    const package = {
+        id:dataPackage.id,
+        e_commerces_id:dataPackage.e_commerces_id,
+        logistics_id:dataPackage.logistics_id,
+        customer_store_number:dataPackage.customer_store_number,
+        package_number:dataPackage.package_number,
+        package_type:dataPackage.package_type,
+        overdue_time:dataPackage.overdue_time,
+        lockers_id:dataPackage.lockers_id,
+        boxes_id:dataPackage.boxes_id,
+        status:dataPackage.status,
+        sync_flag:dataPackage.sync_flag,
+        weight:dataPackage.weight,
+        take_time:dataPackage.take_time,
+        store_time:dataPackage.store_time,
+        take_user_id:dataPackage.take_user_id,
+        store_user_id:dataPackage.store_user_id,
+        take_user_name:dataPackage.take_user_name,
+        store_user_name:dataPackage.store_user_name,
+        staff_taken_user:dataPackage.staff_taken_user,
+        recipient_name:dataPackage.recipient_name,
+        recipient_user_phone_number:dataPackage.recipient_user_phone_number,
+        courier_id:dataPackage.courier_id,
+        start_address:dataPackage.start_address,
+        end_address:dataPackage.end_address,
+        validate_code:dataPackage.validate_code,
+        import_time:dataPackage.import_time
+    };
+
+    await Package.create(package).then(() =>{
+        res.sendStatus(201);
+    }).catch(error => console.log(error))
 };
 
 module.exports ={
-    getPackageNumber
+    getPackageNumber,
+    saveDropPackage
 }

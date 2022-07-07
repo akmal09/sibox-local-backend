@@ -1,6 +1,7 @@
 const express = require("express")
 const {
-    getPackageNumber
+    getPackageNumber,
+    saveDropPackage
 } = require("../controllers/machineController.js");
 
 const {
@@ -10,8 +11,8 @@ const {
 const router = express.Router();
 
 router.post("/package", getPackageNumber);
-
 router.post("/courier-login", courierLogin);
+router.post("/save-package", saveDropPackage);
 
 module.exports = {
     routes : router

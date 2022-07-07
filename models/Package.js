@@ -15,79 +15,102 @@ Package.init(
                 allowNull:true
             },
             logistics_id:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             customer_store_number:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             package_number:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             package_type:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             overdue_time:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             lockers_id:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             boxes_id:{
                 type: DataTypes.STRING,
-                unique: true
+                unique: true,
+                allowNull:false
             },
             status:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             sync_flag:{
-                type: DataTypes.INTEGER
+                type: DataTypes.INTEGER,
+                allowNull:false
             },
             weight:{
-                type: DataTypes.BIGINT
+                type: DataTypes.BIGINT,
+                allowNull:false
             },
             take_time:{
-                type: DataTypes.BIGINT
+                type: DataTypes.TIME,
+                allowNull:true
             }, //stiing->format(time)
             store_time:{
-                type: DataTypes.BIGINT
+                type: DataTypes.TIME,
+                allowNull:false
             }, //stiing->format(time)
             take_user_id:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:true
             },
             store_user_id:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             take_user_name:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:true
             },
             store_user_name:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             staff_taken_user:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:true
             },
             recipient_name:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             recipient_user_phone_number:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             courier_id:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             start_address:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             end_address:{
-                type: DataTypes.STRING
+                type: DataTypes.STRING,
+                allowNull:false
             },
             validate_code:{
-                type: DataTypes.CHAR(6)
+                type: DataTypes.CHAR(6),
+                allowNull:false
             },
             import_time:{
                 type :"TIMESTAMP",
                 defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
-                allowNull:false
+                allowNull:true
             }
     },
     {

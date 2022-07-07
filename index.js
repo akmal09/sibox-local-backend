@@ -12,7 +12,6 @@ const cors = require("cors")
 
 
 
-// sequelize.sync({ force: true})
 const express = require("express")
 const routes = require("./routes/route")
 
