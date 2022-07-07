@@ -5,7 +5,7 @@ const {
 
 const router = express.Router();
 
-router.get("/package", getPackageNumber);
+router.post("/package", getPackageNumber);
 
 module.exports = {
     routes : router

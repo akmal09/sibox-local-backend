@@ -1,7 +1,4 @@
 const Package = require("../models/Package");
-// const api_helper = require("../helper/api_helper");
-const { request } = require("express");
-const https = require("https");
 const axios = require("axios");
 const fetch = require('node-fetch');
 // import axios, * as others from 'axios';
@@ -25,14 +22,15 @@ const getPackageNumber = async (req, res) => {
                 "x_terminal_id" : "212312",
                 "x_token" : "se12jsnpo"
             },
-            body:{
+            data:{
                 "package_number":packagesNumber.package_id
             }
         }).then(responseApi => {
             // console.log(packagesNumber.body.package_id)
             responseData.code = 200
-            responseData.latency=13132
+            responseData.latency=responseApi.data.response.latency
             responseData.message = "OK"
+            // console.log(responseApi.data)
             res.send({
                 response:responseData,
                 data : {
@@ -44,6 +42,8 @@ const getPackageNumber = async (req, res) => {
         })
         .catch(error =>console.log(error))
     }
+
+    
     
 
     
@@ -53,6 +53,14 @@ const getPackageNumber = async (req, res) => {
     // res.send({
     //     packages : packages
     // })
+};
+
+const dropPackage = async(req, res)=>{
+
+    const dataPackage = req.body;
+    console.log(dataPackage)
+
+    // buat mekanisme insert ke database
 };
 
 module.exports ={
