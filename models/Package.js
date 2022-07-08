@@ -8,7 +8,8 @@ Package.init(
     {
             id:{
                 type : DataTypes.STRING,
-                primaryKey : true
+                primaryKey : true,
+                unique: true
             },
             e_commerces_id:{
                 type : DataTypes.STRING,
@@ -40,7 +41,6 @@ Package.init(
             },
             boxes_id:{
                 type: DataTypes.STRING,
-                unique: true,
                 allowNull:false
             },
             status:{
@@ -52,7 +52,7 @@ Package.init(
                 allowNull:false
             },
             weight:{
-                type: DataTypes.BIGINT,
+                type: DataTypes.INTEGER,
                 allowNull:false
             },
             take_time:{

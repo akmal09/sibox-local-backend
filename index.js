@@ -6,11 +6,10 @@ const sequelize = require("./database/dbconfig")
 const Package = require("./models/Package");
 const cors = require("cors")
 
+// ALERT MIGRATION
 // sequelize.sync({ force: true }).then(async () => {
 //     console.log()
 // })
-
-
 
 const express = require("express")
 const routes = require("./routes/route")
