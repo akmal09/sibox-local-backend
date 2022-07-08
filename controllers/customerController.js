@@ -4,7 +4,7 @@ const responseData = require("../helper/response");
 const Package = require("../models/Package");
 
 const takenPackage = async(req, res)=>{
-    const findPackage = await Package.findOne({where:{package_number : req.body.package_number}})
+    const findPackage = await Package.findOne({where:{validate_code : req.body.validate_code}})
     console.log(findPackage)
     const current = new Date()
     // console.log(current.toString())
@@ -13,7 +13,7 @@ const takenPackage = async(req, res)=>{
         res.send({response:401})
     }else{
         // update package
-        await Package.findOne({where:{package_number : req.body.package_number}}).then((item) => {
+        await Package.findOne({where:{validate_code : req.body.validate_code}}).then((item) => {
             item.update({
                   take_time : current.toString()
             })
@@ -24,7 +24,7 @@ const takenPackage = async(req, res)=>{
         responseData.responseData.message = "Package Available"
         res.send({
             response: responseData.responseData,
-            data:await Package.findOne({where:{package_number : req.body.package_number}})
+            data:await Package.findOne({where:{validate_code : req.body.validate_code}})
         })
     }    
 };
@@ -63,8 +63,6 @@ const saveTakenPackage = async(req, res)=>{
     await Package.create(package).then(()=>{
         res.send({status:201})
     })
-
-
 };
 
 module.exports={

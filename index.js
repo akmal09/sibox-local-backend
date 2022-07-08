@@ -7,9 +7,9 @@ const Package = require("./models/Package");
 const cors = require("cors");
 
 // ALERT MIGRATION
-// sequelize.sync({ force: true }).then(async () => {
-//     console.log()
-// })
+sequelize.sync({ force: true }).then(async () => {
+    console.log()
+})
 
 
 const express = require("express");
