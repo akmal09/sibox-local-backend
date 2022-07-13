@@ -1,5 +1,6 @@
 const { hitApi } = require("../helper/api_helper")
 const Box = require("../models/Box")
+const BoxType = require("../models/BoxType")
 const Locker = require("../models/Locker")
 
 const initLocker = async(req,res)=>{
@@ -7,6 +8,7 @@ const initLocker = async(req,res)=>{
     dataLocker = {}
     dataLocker.lockers_id = req.body.lockers_id
 
+    // nama locker : Sibox Apt Greenvile Sunter
     // console.log(dataLocker)
 
     const lockersData = hitApi(url, dataLocker)
@@ -45,7 +47,7 @@ const initBox = async(req,res)=>{
 
     getBox.then((results)=>{
         console.log(results)
-        results.data.map(async(result) => {
+        results.data.box.map(async(result) => {
             console.log(result)
             const boxes = {
                 id: result.id,
@@ -57,18 +59,24 @@ const initBox = async(req,res)=>{
                 sync_flag: 0,
                 use_price: result.use_price,
                 modules_id: result.modules_id,
-                box_types_id: result.box_types_id,
+                box_type_id: result.box_types_id,
                 open_order: result.open_order
             }
-            await Box.create(boxes).then(()=>{
-                totalBox += 1
-            })
+            await Box.create(boxes)
+            totalBox += 1
+        })
+
+        results.data.box_type.map(async(type)=>{
+            const boxType = {
+                id : type.id,
+                default_overdue_price : type.default_overdue_price ,
+                default_use_price : type.default_use_price,
+                name: type.name
+            }
+            await BoxType.create(boxType);
         })
     })
 
-    // const dataBox = setTimeOut(async()=>{
-    //     await Box.findAll()
-    // }, 7000)
     const dataBox = await Box.findAll()
     await res.send({
         response : `${totalBox} box inserted`,

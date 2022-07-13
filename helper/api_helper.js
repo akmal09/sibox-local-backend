@@ -31,6 +31,23 @@ const hitApi = async (url, datapackage) => {
     }
 }
 
+const hitLocker = async(url, box_number)=>{
+    try{
+        const response = await axios(url, {
+            method: "POST",
+            data: {
+                "cmd":"open",
+                "param":5
+            }
+        })
+
+        return response
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports = {
-    hitApi : hitApi
+    hitApi : hitApi,
+    hitLocker : hitLocker
 }

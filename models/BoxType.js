@@ -2,9 +2,9 @@ const { Model, DataTypes } = require("sequelize");
 // const { FOREIGNKEYS } = require("sequelize/types/query-types");
 const sequelize = require("../database/dbconfig");
 
-class Box extends Model {}
+class BoxType extends Model {}
 
-Box.init(
+BoxType.init(
     {
         id:{
             type : DataTypes.STRING,
@@ -26,4 +26,6 @@ Box.init(
         modelName : "box_types",
         timestamps : true
     }
-    )
+);
+
+module.exports = BoxType
