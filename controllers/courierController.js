@@ -43,6 +43,7 @@ const saveDropPackage = async (req, res) => {
   const timeStart = new Date()
   const dataPackage = req.body;
   const currentTime = new Date()
+  
   const package = {
       id:dataPackage.id,
       e_commerces_id:dataPackage.e_commerces_id,
@@ -84,6 +85,7 @@ const saveDropPackage = async (req, res) => {
       
       });
   })
+
 };
 
 const courierLogin = async (req, res) => {
@@ -102,7 +104,7 @@ const courierLogin = async (req, res) => {
     },
   })
     .then((responseApi) => {
-      console.log(responseApi.data.data.token);
+      //   console.log(responseApi.data.data.token);
       responseData.responseData.code = responseApi.data.response.code;
       responseData.responseData.latency = responseApi.data.response.latency;
       responseData.responseData.message = responseApi.data.response.message;

@@ -5,6 +5,7 @@ const sequelize = require("../database/dbconfig");
 class Package extends Model {}
 
 Package.init(
+<<<<<<< HEAD
     {
             id:{
                 type : DataTypes.STRING,

@@ -2,7 +2,6 @@ if (process.env.NODE_ENV == "production") {
   require("dotenv").config();
 }
 const cors = require("cors");
-const cookieParser = require("cookie-parser")
 const express = require("express");
 const routes = require("./routes/route");
 const app = express();
