@@ -6,7 +6,7 @@ class Locker extends Model {}
 Locker.init(
     {
         id : {
-            type : DataTypes.INTEGER,
+            type : DataTypes.STRING,
             primaryKey : true
         },
         currency_unit : {

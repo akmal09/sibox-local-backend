@@ -1,6 +1,7 @@
 const Package = require("../models/Package");
 const axios = require("axios");
 const responseData = require("../helper/response");
+const { stringGenerator } = require("../helper/string_generator");
 
 const getPackageNumber = async (req, res) => {
   const packagesNumber = req.body;
@@ -39,8 +40,9 @@ const getPackageNumber = async (req, res) => {
 };
 
 const saveDropPackage = async (req, res) => {
+  const timeStart = new Date()
   const dataPackage = req.body;
-  console.log(dataPackage);
+  const currentTime = new Date()
   const package = {
       id:dataPackage.id,
       e_commerces_id:dataPackage.e_commerces_id,
@@ -67,12 +69,20 @@ const saveDropPackage = async (req, res) => {
       start_address:dataPackage.start_address,
       end_address:dataPackage.end_address,
       validate_code:dataPackage.validate_code,
-      last_modified_time:dataPackage.last_modified_time,
+      last_modified_time:currentTime.toString(),
       import_time:dataPackage.import_time
   };
 
   await Package.create(package).then(() =>{
-      res.send({status:201});
+    const timeEnd = new Date()
+      res.send({
+        response : {
+          code : 200,
+          latnecy : timeEnd - timeStart,
+          message : "Berhasil dibuat",
+        }
+      
+      });
   })
 };
 

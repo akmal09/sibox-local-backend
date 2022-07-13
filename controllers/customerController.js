@@ -1,5 +1,4 @@
 const axios = require("axios");
-const response = require("../helper/response");
 const responseData = require("../helper/response");
 const Package = require("../models/Package");
 
@@ -7,7 +6,6 @@ const takenPackage = async(req, res)=>{
     const findPackage = await Package.findOne({where:{validate_code : req.body.validate_code}})
     console.log(findPackage)
     const current = new Date()
-    // console.log(current.toString())
 
     if(findPackage == null){
         res.send({response:401})
@@ -15,7 +13,8 @@ const takenPackage = async(req, res)=>{
         // update package
         await Package.findOne({where:{validate_code : req.body.validate_code}}).then((item) => {
             item.update({
-                  take_time : current.toString()
+                  take_time : current.toString(),
+                  status : "Collected",                  
             })
         })
 

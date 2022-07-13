@@ -104,8 +104,12 @@ Package.init(
                 allowNull:false
             },
             validate_code:{
-                type: DataTypes.CHAR(6),
+                type: DataTypes.CHAR(8),
                 allowNull:false
+            },
+            last_modified_time:{
+                type: DataTypes.STRING,
+                allowNull:true
             },
             import_time:{
                 type :"TIMESTAMP",

@@ -7,7 +7,8 @@ Box.init(
     {
         id:{
             type : DataTypes.STRING,
-            primaryKey : true
+            primaryKey : true,
+            unique: true
         },
         delete_flag:{
             type : DataTypes.INTEGER

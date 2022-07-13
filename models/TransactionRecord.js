@@ -8,7 +8,9 @@ class TransactionRecord extends Model {}
 TransactionRecord.init(
     {
         id:{
-            type : DataTypes.STRING
+            type : DataTypes.STRING,
+            primaryKey : true,
+            unique: true
         },
         amount:{
             type:DataTypes.BIGINT
