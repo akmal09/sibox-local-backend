@@ -1,5 +1,6 @@
 const axios = require("axios");
 const responseData = require("../helper/response");
+const Box = require("../models/Box");
 const Package = require("../models/Package");
 
 const takenPackage = async(req, res)=>{
@@ -9,8 +10,6 @@ const takenPackage = async(req, res)=>{
 
   hitLocker(url, box.number)
 
-  const current = new Date()
-
   if(findPackage == null){
       res.send({response:401})
   }else{
@@ -18,7 +17,8 @@ const takenPackage = async(req, res)=>{
     await Package.findOne({where:{validate_code : req.body.validate_code}}).then((item) => {
         item.update({
               take_time : current.toString(),
-              status : "Collected",                  
+              status : "Collected",     
+              sync_flag : 0             
         })
     })
 

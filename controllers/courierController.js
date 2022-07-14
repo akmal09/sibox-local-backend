@@ -43,7 +43,7 @@ const getPackageNumber = async (req, res) => {
 };
 
 const saveDropPackage = async (req, res) => {
-  const url = ""
+  const url = "http://127.0.0.1:5000/sibox"
   const timeStart = new Date()
   const dataPackage = req.body;
   const currentTime = new Date()
@@ -136,49 +136,48 @@ const saveDropPackage = async (req, res) => {
     })  
       //   console.log(dataPackage)
       // NON API
-      //   const package = {
-      //     id:dataPackage.id,
-      //     e_commerces_id:dataPackage.e_commerces_id,
-      //     logistics_id:dataPackage.logistics_id,
-      //     customer_store_number:dataPackage.customer_store_number,
-      //     package_number:dataPackage.package_number,
-      //     package_type:"courier_store",
-      //     overdue_time:dataPackage.overdue_time,
-      //     lockers_id:dataPackage.lockers_id,
-      //     boxes_id:selectReadyBox.id,
-      //     status:"stored",
-      //     sync_flag:0,
-      //     weight:dataPackage.weight,
-      //     take_time:dataPackage.take_time,
-      //     store_time:dataPackage.store_time,
-      //     take_user_id:dataPackage.take_user_id,
-      //     store_user_id:dataPackage.store_user_id,
-      //     take_user_name:dataPackage.take_user_name,
-      //     store_user_name:dataPackage.store_user_name,
-      //     staff_taken_user:dataPackage.staff_taken_user,
-      //     recipient_name:dataPackage.recipient_name,
-      //     recipient_user_phone_number:dataPackage.recipient_user_phone_number,
-      //     courier_id:dataPackage.courier_id,
-      //     start_address:dataPackage.start_address,
-      //     end_address:dataPackage.end_address,
-      //     validate_code:stringGenerator(6),
-      //     last_modified_time:currentTime.toString(),
-      //     import_time:dataPackage.import_time
-      // };
+  //       const package = {
+  //         id:dataPackage.id,
+  //         e_commerces_id:dataPackage.e_commerces_id,
+  //         logistics_id:dataPackage.logistics_id,
+  //         customer_store_number:dataPackage.customer_store_number,
+  //         package_number:dataPackage.package_number,
+  //         package_type:"courier_store",
+  //         overdue_time:dataPackage.overdue_time,
+  //         lockers_id:dataPackage.lockers_id,
+  //         boxes_id:selectReadyBox.id,
+  //         status:"Stored",
+  //         sync_flag:0,
+  //         weight:dataPackage.weight,
+  //         take_time:dataPackage.take_time,
+  //         store_time:dataPackage.store_time,
+  //         take_user_id:dataPackage.take_user_id,
+  //         store_user_id:dataPackage.store_user_id,
+  //         take_user_name:dataPackage.take_user_name,
+  //         store_user_name:dataPackage.store_user_name,
+  //         staff_taken_user:dataPackage.staff_taken_user,
+  //         recipient_name:dataPackage.recipient_name,
+  //         recipient_user_phone_number:dataPackage.recipient_user_phone_number,
+  //         courier_id:dataPackage.courier_id,
+  //         start_address:dataPackage.start_address,
+  //         end_address:dataPackage.end_address,
+  //         validate_code:stringGenerator(6),
+  //         last_modified_time:currentTime.toString(),
+  //         import_time:dataPackage.import_time
+  //     };
     
-      // await Package.create(package).then(() =>{
-      //   const timeEnd = new Date()
-      //     res.send({
-      //       response : {
-      //         code : 200,
-      //         latnecy : timeEnd - timeStart,
-      //         message : "Paket Telah di drop",
-      //       },
-      //       data : {}
-      //     });
-      // })
+  //     await Package.create(package).then(() =>{
+  //       const timeEnd = new Date()
+  //         res.send({
+  //           response : {
+  //             code : 200,
+  //             latnecy : timeEnd - timeStart,
+  //             message : "Paket Telah di drop",
+  //           },
+  //           data : {}
+  //         });
+  //     })
   }
-  
 };
 
 // const saveDropPackage = async (req, res)=>{

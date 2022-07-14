@@ -47,6 +47,10 @@ const hitLocker = async(url, box_number)=>{
     }
 }
 
+const hitTraceLocker = async()=>{
+    
+}
+
 module.exports = {
     hitApi : hitApi,
     hitLocker : hitLocker

@@ -84,7 +84,12 @@ const initBox = async(req,res)=>{
     })
 }
 
+const traceBox = async(req, res)=>{ 
+    
+}
+
 module.exports = {
     initBox,
-    initLocker
+    initLocker,
+    traceBox
 }
