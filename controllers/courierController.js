@@ -122,6 +122,13 @@ const saveDropPackage = async (req, res) => {
             data : {}
           });
       })
+
+      await Box.findOne({where : {id: selectReadyBox.id}}).then((item)=>{
+        item.update({
+          status : "filled"
+        })
+      })
+
     }else{
       const timeEnd = new Date()
       res.send({
