@@ -28,8 +28,8 @@ const syncPackage = async(req,res)=>{
             })
     
             if(isBroke == true){
-                break;
                 responFinalValue =`There is Error Data, please re-sync again`
+                break;
             }else{
                 await Package.findOne({where : { package_number : syncFlagZeros[i].package_number }}).then((item) => {
                     item.update({
