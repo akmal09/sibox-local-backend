@@ -1,7 +1,7 @@
 const response = require("./response")
 const axios = require("axios");
 
-const hitApi = async (url, datapackage) => {
+const hitApi = async (url, datapackage,isBroke) => {
     try{
         var response = await axios(url,{
             method :  "POST",
@@ -25,7 +25,7 @@ const hitApi = async (url, datapackage) => {
                 timeout:5000
             }
         )
-        return response.data
+        return response.data;
     }catch(error){
         console.log(error)
     }
@@ -47,11 +47,18 @@ const hitLocker = async(url, box_number)=>{
     }
 }
 
-const hitTraceLocker = async()=>{
-    
+const isBroke = {
+    variable:false,
+    set setBroke(param){
+        this.variable = param
+    },
+    get getBroke(){
+        return this.variable
+    }
 }
 
 module.exports = {
     hitApi : hitApi,
-    hitLocker : hitLocker
+    hitLocker : hitLocker,
+    isBrokeResponse : isBroke
 }

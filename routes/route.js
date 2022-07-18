@@ -15,7 +15,8 @@ const {
 
 const {
     initLocker, 
-    initBox
+    initBox,
+    emptyBox
 } = require("../controllers/machineController")
 
 const router = express.Router();
@@ -34,6 +35,7 @@ router.post("/user-take-package", takenPackage);
 
 router.post("/init-locker",initLocker)
 router.post("/init-box/:id_lockers", middleware, initBox)
+router.post("/empty-box", emptyBox)
 
 module.exports = {
     routes : router

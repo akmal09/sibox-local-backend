@@ -27,7 +27,7 @@ app.use("/service", routes.routes);
 const PORT = process.env.PORT | 3005;
 app.listen(PORT, (req, resp) => {
   console.log(`Service endpoint = http://localhost:${PORT}`);
-  const task = cron.schedule("0 */5 * * * *", ()=>{
+  const task = cron.schedule("0 */1 * * * *", ()=>{
     console.log("ini cron")
     syncPackage()
   })

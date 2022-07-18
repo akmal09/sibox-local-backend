@@ -84,12 +84,52 @@ const initBox = async(req,res)=>{
     })
 }
 
-const traceBox = async(req, res)=>{ 
-    
+const emptyBox = async(req, res)=>{ 
+
+    const boxS = await BoxType.findOne({where : {
+        name : "S"
+    }})
+
+    const boxM = await BoxType.findOne({where : {
+        name : "M"
+    }})
+
+    const boxL = await BoxType.findOne({where : {
+        name : "L"
+    }})
+
+    console.log(boxS)
+
+    const emptyBoxS = await Box.findAll({where :{
+        status:"ready",
+        box_type_id : boxS.id
+    }})
+
+
+    const emptyBoxM = await Box.findAll({where :{
+        status:"ready",
+        box_type_id : boxM.id
+    }})
+
+
+    const emptyBoxL = await Box.findAll({where :{
+        status:"ready",
+        box_type_id : boxL.id
+    }})
+
+    console.log("JUMLAH BX S",emptyBoxS.length)
+    console.log("JUMLAH BX M",emptyBoxM.length)
+    console.log("JUMLAH BX L",emptyBoxL.length)
+
+    res.send({
+        S : emptyBoxS.length,
+        M : emptyBoxM.length,
+        L : emptyBoxL.length
+    })
 }
 
 module.exports = {
     initBox,
     initLocker,
-    traceBox
+    emptyBox
 }

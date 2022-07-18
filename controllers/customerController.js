@@ -20,7 +20,7 @@ const takenPackage = async(req, res)=>{
       })
     })
   }else {
-    if(findPackage.status == "Stored"){
+    if(findPackage.status == "STORED"){
       const box = await Box.findOne({where:{id : findPackage.boxes_id}})
       console.log(findPackage)
   
@@ -34,7 +34,7 @@ const takenPackage = async(req, res)=>{
         await Package.findOne({where:{validate_code : req.body.validate_code}}).then((item) => {
             item.update({
                   take_time : current.toString(),
-                  status : "Collected",     
+                  status : "COLLECTED",     
                   sync_flag : 0             
             })
         })

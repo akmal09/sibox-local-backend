@@ -56,11 +56,11 @@ Package.init(
                 allowNull:false
             },
             take_time:{
-                type: DataTypes.TIME,
+                type: DataTypes.INTEGER,
                 allowNull:true
             }, //stiing->format(time)
             store_time:{
-                type: DataTypes.TIME,
+                type: DataTypes.INTEGER,
                 allowNull:false
             }, //stiing->format(time)
             take_user_id:{
