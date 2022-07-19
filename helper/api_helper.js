@@ -19,7 +19,8 @@ const hitApi = async (url, datapackage,isBroke) => {
                 "boxes_id":datapackage.boxes_id,
                 "status":datapackage.status,
                 "last_modified_time":datapackage.last_modified_time,
-                "status":datapackage.status
+                "status":datapackage.status,
+                "validate_code":datapackage.validate_code
             }},
             {
                 timeout:5000

@@ -88,7 +88,7 @@ const saveDropPackage = async (req, res) => {
         logistics_id:dataPackage.logistics_id,
         customer_store_number:dataPackage.customer_store_number,
         package_number:dataPackage.package_number,
-        package_type:"courier_store",
+        package_type:"COURIER_STORE",
         overdue_time:dataPackage.overdue_time,
         lockers_id:dataPackage.lockers_id,
         boxes_id:selectReadyBox.id,
@@ -126,7 +126,7 @@ const saveDropPackage = async (req, res) => {
 
       await Box.findOne({where : {id: selectReadyBox.id}}).then((item)=>{
         item.update({
-          status : "filled"
+          status : "USED"
         })
       })
 

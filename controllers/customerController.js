@@ -40,7 +40,7 @@ const takenPackage = async(req, res)=>{
         })
         await Box.findOne({where:{id : findPackage.boxes_id}}).then((item) =>{
           item.update({
-            status : "ready"
+            status : "FREE"
           })
         })
         const endTime = new Date()
