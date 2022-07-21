@@ -4,6 +4,13 @@ const responseData = {
     message:""
 }
 
+const cekTarifRequest = {
+    province:"",
+    city:"",
+    district:""
+}
+
 module.exports = {
-    responseData : responseData
+    responseData : responseData,
+    cekTarifRequest : cekTarifRequest
 }

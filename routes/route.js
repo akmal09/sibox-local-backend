@@ -19,6 +19,10 @@ const {
     emptyBox
 } = require("../controllers/machineController")
 
+const{
+    cekTarif, cekAsuransi
+} = require("../controllers/thirdApiController")
+
 const router = express.Router();
 
 function middleware(req, res, next){
@@ -36,6 +40,9 @@ router.post("/user-take-package", takenPackage);
 router.post("/init-locker",initLocker)
 router.post("/init-box/:id_lockers", middleware, initBox)
 router.post("/empty-box", emptyBox)
+
+router.post("/cek-tarif", cekTarif)
+router.post("/cek-asuransi", cekAsuransi)
 
 module.exports = {
     routes : router

@@ -58,8 +58,56 @@ const isBroke = {
     }
 }
 
+const hitCekTarif = async(url, dataPackage)=>{
+    try{
+        const response = await axios(url,{
+            method :  "POST",
+            headers:{
+                "Content-Type" : "application/json",
+                "x_terminal_id" : "212312",
+                "x_token" : "se12jsnpo"
+            },
+            data:{
+                "province" : dataPackage.province,
+                "city" : dataPackage.city,
+                "district" : dataPackage.district
+            }},
+            {
+                timeout:5000
+            }
+        )
+        return response.data;
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const hitCekAsuransi= async(url, dataPackage)=>{
+    try{
+        const response = await axios(url,{
+            method :  "POST",
+            headers:{
+                "Content-Type" : "application/json",
+                "x_terminal_id" : "212312",
+                "x_token" : "se12jsnpo"
+            },
+            data:{
+                "parcel_value" : dataPackage.parcel_value
+            }},
+            {
+                timeout:5000
+            }
+        )
+        return response.data;
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports = {
     hitApi : hitApi,
     hitLocker : hitLocker,
-    isBrokeResponse : isBroke
+    isBrokeResponse : isBroke,
+    hitCekTarif : hitCekTarif,
+    hitCekAsuransi : hitCekAsuransi
 }

@@ -18,6 +18,7 @@ const syncPackage = async(req,res)=>{
     }else{
         syncFlagZeros.map((syncFlagZero)=>{
             var res = hitApi(url, syncFlagZero)
+            console.log(syncFlagZero)
             res.then(async (result) =>{
                 if(result.response.code == 200){
                     console.log(syncFlagZero.package_number)
