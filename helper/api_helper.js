@@ -70,7 +70,8 @@ const hitCekTarif = async(url, dataPackage)=>{
             data:{
                 "province" : dataPackage.province,
                 "city" : dataPackage.city,
-                "district" : dataPackage.district
+                "district" : dataPackage.district,
+                "city_destination" : dataPackage.cityDestination
             }},
             {
                 timeout:5000

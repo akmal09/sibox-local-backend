@@ -7,7 +7,8 @@ const responseData = {
 const cekTarifRequest = {
     province:"",
     city:"",
-    district:""
+    district:"",
+    cityDestination:""
 }
 
 module.exports = {
