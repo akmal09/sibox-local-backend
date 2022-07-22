@@ -1,4 +1,5 @@
-const { hitCekTarif, hitCekAsuransi} = require("../helper/api_helper");
+const config = require("../config/config");
+const { hitCekTarif, hitCekAsuransi, hitThirdApi} = require("../helper/api_helper");
 const { cekTarifRequest, responseData } = require("../helper/response")
 
 const cekTarif = async(req,res)=>{
@@ -29,7 +30,6 @@ const cekTarif = async(req,res)=>{
                 console.log("ALERT, ERROR HOST",result)
             }
         }
-        
     })
 }
 
@@ -58,10 +58,29 @@ const cekAsuransi = async(req,res)=>{
 }
 
 const pickUpRequest = async(req,res)=>{
-    
+    const url = "http://127.0.0.1:8000/api/send/pickup-request"
+    const data = req.body
+    console.log({data : data})
+    const response = hitThirdApi(url, data)
+    response.then(async (result) =>{
+        console.log(result)
+    })
+
+
+}
+
+const listKelurahan = async(req,res)=>{
+    const url = "http://127.0.0.1:8000/api/list-sub-district"
+    const data = req.body
+    var response = hitThirdApi(url, data)
+    response.then(async (result) =>{
+        console.log(result)
+    })
 }
 
 module.exports = {
     cekTarif,
-    cekAsuransi
+    cekAsuransi,
+    listKelurahan,
+    pickUpRequest
 }

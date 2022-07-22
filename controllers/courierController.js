@@ -8,7 +8,6 @@ const BoxType = require("../models/BoxType");
 
 const getPackageNumber = async (req, res) => {
   const packagesNumber = req.body;
-  // console.log(packagesNumber.package_id)
   if (
     packagesNumber.package_id == undefined ||
     packagesNumber.package_id == null ||
@@ -55,17 +54,11 @@ const saveDropPackage = async (req, res) => {
     name : dataPackage.boxes_id
   }})
 
-  // console.log("tipe box ", boxTypeId.id)
-
   const selectReadyBox = await Box.findOne({where : {
     status : "ready",
     box_type_id: boxTypeId.id
   }})
 
-  // console.log(selectReadyBox)
-  
-
-  // console.log(selectReadyBox)
   if(selectReadyBox == null){
     const timeEnd = new Date()
     res.send({
@@ -80,7 +73,6 @@ const saveDropPackage = async (req, res) => {
     // HIT API JIKA SUDAH SIAP
     const responseLocker = hitLocker(url,selectReadyBox.number)
     responseLocker.then(async (response) =>{
-      // console.log(response)
       if(response.data.message == "Success"){
       const package = {
         id:dataPackage.id,
@@ -146,7 +138,6 @@ const saveDropPackage = async (req, res) => {
   }
 };
 
-
 const courierLogin = async (req, res) => {
   const loginAtrribute = req.body;
 
@@ -178,7 +169,6 @@ const courierLogin = async (req, res) => {
           data: responseApi.data.data.token,
         });
       }
-
     })
     .catch((error) => console.log(error));
 };

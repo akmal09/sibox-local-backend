@@ -105,10 +105,32 @@ const hitCekAsuransi= async(url, dataPackage)=>{
     }
 }
 
+const hitThirdApi = async(url, dataPackage)=>{
+    try{
+        const response = await axios(url,{
+            method :  "POST",
+            headers:{
+                "Content-Type" : "application/json",
+                "x_terminal_id" : "212312",
+                "x_token" : "se12jsnpo"
+            },
+            data:{dataPackage}
+        },
+            {
+                timeout:5000
+            }
+        )
+        return response.data;
+    }catch(error){
+        console.log(error)
+    }
+}
+
 module.exports = {
     hitApi : hitApi,
     hitLocker : hitLocker,
     isBrokeResponse : isBroke,
     hitCekTarif : hitCekTarif,
-    hitCekAsuransi : hitCekAsuransi
+    hitCekAsuransi : hitCekAsuransi,
+    hitThirdApi : hitThirdApi
 }

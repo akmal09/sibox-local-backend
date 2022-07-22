@@ -20,7 +20,7 @@ const {
 } = require("../controllers/machineController")
 
 const{
-    cekTarif, cekAsuransi
+    cekTarif, cekAsuransi, listKelurahan, pickUpRequest
 } = require("../controllers/thirdApiController")
 
 const router = express.Router();
@@ -43,6 +43,9 @@ router.post("/empty-box", emptyBox)
 
 router.post("/cek-tarif", cekTarif)
 router.post("/cek-asuransi", cekAsuransi)
+
+router.post("/list-kelurahan", listKelurahan)
+router.post("/pickup-request", pickUpRequest)
 
 module.exports = {
     routes : router
