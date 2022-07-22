@@ -61,12 +61,10 @@ const pickUpRequest = async(req,res)=>{
     const url = "http://127.0.0.1:8000/api/send/pickup-request"
     const data = req.body
     console.log({data : data})
-    const response = hitThirdApi(url, data)
-    response.then(async (result) =>{
-        console.log(result)
-    })
-
-
+    // const response = hitThirdApi(url, data)
+    // response.then(async (result) =>{
+    //     console.log(result)
+    // })
 }
 
 const listKelurahan = async(req,res)=>{
