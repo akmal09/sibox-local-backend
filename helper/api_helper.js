@@ -126,11 +126,19 @@ const hitThirdApi = async(url, dataPackage)=>{
     }
 }
 
+const timeCall = (time, h)=>{
+    console.log("sebelum ",time)
+    time.setTime(time.getTime() + (h *60 * 60 * 1000))
+    console.log("sesudah ",time)
+    return time
+}
+
 module.exports = {
     hitApi : hitApi,
     hitLocker : hitLocker,
     isBrokeResponse : isBroke,
     hitCekTarif : hitCekTarif,
     hitCekAsuransi : hitCekAsuransi,
-    hitThirdApi : hitThirdApi
+    hitThirdApi : hitThirdApi,
+    timeCall : timeCall
 }

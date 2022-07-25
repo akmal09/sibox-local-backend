@@ -43,7 +43,7 @@ const initBox = async(req,res)=>{
     const dataLocker = {lockers_id : req.params.id_lockers}
     console.log("inibox",req.params.id_lockers)
     const getBox = hitApi(url, dataLocker)
-    var totalBox = 1
+    var totalBox = 0
 
     getBox.then((results)=>{
         console.log(results)

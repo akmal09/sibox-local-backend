@@ -47,6 +47,7 @@ router.post("/cek-asuransi", cekAsuransi)
 router.post("/list-kelurahan", listKelurahan)
 router.post("/pickup-request", pickUpRequest)
 
+
 module.exports = {
     routes : router
 }

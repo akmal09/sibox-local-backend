@@ -54,18 +54,18 @@ const saveDropPackage = async (req, res) => {
     name : dataPackage.boxes_id
   }})
 
-  const selectReadyBox = await Box.findOne({where : {
-    status : "ready",
+  const selectFreeBox = await Box.findOne({where : {
+    status : "FREE",
     box_type_id: boxTypeId.id
   }})
 
-  if(selectReadyBox == null){
+  if(selectFreeBox == null){
     const timeEnd = new Date()
     res.send({
       response : {
         code : 400,
         latnecy : timeEnd - timeStart,
-        message : "Paket Telah di drop",
+        message : "Box Penuh",
       },
       data : {}
     });

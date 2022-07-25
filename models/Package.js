@@ -17,14 +17,18 @@ Package.init(
             },
             logistics_id:{
                 type: DataTypes.STRING,
-                allowNull:false
+                allowNull:true
             },
             customer_store_number:{
                 type: DataTypes.STRING,
-                allowNull:false
+                allowNull:true
             },
             package_number:{
                 type: DataTypes.STRING,
+                allowNull:true
+            },
+            pickup_request_date:{
+                type: DataTypes.DATE,
                 allowNull:false
             },
             package_type:{
@@ -33,7 +37,7 @@ Package.init(
             },
             overdue_time:{
                 type: DataTypes.STRING,
-                allowNull:false
+                allowNull:true
             },
             lockers_id:{
                 type: DataTypes.STRING,
@@ -91,7 +95,51 @@ Package.init(
                 type: DataTypes.STRING,
                 allowNull:false
             },
+            recipient_address:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            recipient_district:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            recipient_city:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            recipient_province:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            shipper_disrict:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            shipper_city:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            shipper_province:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            shipper_zipcode:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
             courier_id:{
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            destination_code:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            tarif:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            origin_code:{
                 type: DataTypes.STRING,
                 allowNull:false
             },
@@ -104,10 +152,46 @@ Package.init(
                 allowNull:false
             },
             validate_code:{
-                type: DataTypes.CHAR(8),
+                type: DataTypes.CHAR(6),
                 allowNull:false
             },
-            last_modified_time:{
+            insurance:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            notes:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            delivery_type:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            parcel_category:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            parcel_content:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            parcel_value:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
+            merchant_code:{
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            merchant_name:{
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            merchant_phone:{
+                type: DataTypes.STRING,
+                allowNull:true
+            },
+            merchant_email:{
                 type: DataTypes.STRING,
                 allowNull:true
             },
@@ -115,8 +199,12 @@ Package.init(
                 type :"TIMESTAMP",
                 defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
                 allowNull:true
+            },
+            last_modified_time:{
+                type: DataTypes.STRING,
+                allowNull:true
             }
-    },
+        },
     {
         sequelize,
         modelName: "packages",
