@@ -2,7 +2,8 @@ const express = require("express")
 const {
     getPackageNumber,
     saveDropPackage,
-    courierLogin
+    courierLogin,
+    getCourierData
 } = require("../controllers/courierController");
 
 const {
@@ -46,6 +47,7 @@ router.post("/cek-asuransi", cekAsuransi)
 
 router.post("/list-kelurahan", listKelurahan)
 router.post("/pickup-request", pickUpRequest)
+router.post("/courier-data", getCourierData)
 
 
 module.exports = {

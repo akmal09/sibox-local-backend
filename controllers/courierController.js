@@ -3,7 +3,7 @@ const axios = require("axios");
 const responseData = require("../helper/response");
 const { stringGenerator } = require("../helper/string_generator");
 const Box = require("../models/Box");
-const { hitLocker } = require("../helper/api_helper");
+const { hitLocker, hitThirdApi } = require("../helper/api_helper");
 const BoxType = require("../models/BoxType");
 
 const getPackageNumber = async (req, res) => {
@@ -154,27 +154,70 @@ const courierLogin = async (req, res) => {
     },
   })
     .then((responseApi) => {
-      responseData.responseData.code = responseApi.data.response.code;
-      responseData.responseData.latency = responseApi.data.response.latency;
-      responseData.responseData.message = responseApi.data.response.message;
-
-      if (responseData.responseData.code == 200 && responseApi.data.data.token != undefined) {
+      console.log("responapi", responseApi.data);
+      if(responseApi == undefined||responseApi == null){
         res.send({
-          response: responseData.responseData,
-          data: responseApi.data.data.token,
+          response: {
+            code: 500,
+            latency: 0,
+            message: "Internal Error",
+          },
+          data: {},
         });
-      } else {
-        res.send({
-          response: responseData.responseData,
-          data: responseApi.data.data.token,
-        });
+      }else{
+        responseData.responseData.code = responseApi.data.response.code;
+        responseData.responseData.latency = responseApi.data.response.latency;
+        responseData.responseData.message = responseApi.data.response.message;
+  
+        if (responseData.responseData.code == 200 && responseApi.data.data.token != undefined) {
+          res.send({
+            response: responseData.responseData,
+            data: responseApi.data.data.token,
+          });
+        } else {
+          res.send({
+            response: responseData.responseData,
+            data: responseApi.data.data.token,
+          });
+        }
       }
     })
     .catch((error) => console.log(error));
 };
 
+const getCourierData = async (req, res) => {
+  const url = "http://127.0.0.1:8000/locker/data/courier";
+  const timeStart = new Date()
+  const token = req.body;
+  const response = hitThirdApi(url,token)
+  response.then(async (resHost) =>{
+    console.log(resHost)
+    const timeEnd = new Date()
+    if(resHost.response.code == 200){
+      res.send({
+        response : {
+          code : resHost.response.code,
+          latnecy : timeEnd - timeStart,
+          message : resHost.response.message
+        },
+        data : resHost.data
+      });
+    }else{
+      res.send({
+        response : {
+          code : resHost.response.code,
+          latnecy : timeEnd - timeStart,
+          message : resHost.response.message
+        },
+        data : resHost.data
+      });
+    }
+  }).catch((error) => console.log(error))
+}
+
 module.exports = {
   getPackageNumber,
   saveDropPackage,
   courierLogin,
+  getCourierData
 };
