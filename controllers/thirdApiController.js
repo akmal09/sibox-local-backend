@@ -115,7 +115,6 @@ const pickUpRequest = async(req,res)=>{
             store_time : currentTime.getTime(), 
             take_user_id : null,
             store_user_id : stringGenerator(12),
-            take_user_name : dataPackage.take_user_name,
             store_user_name : dataPackage.store_user_name,
             staff_taken_user : null,
             recipient_name : dataPackage.recipient_name,
@@ -142,10 +141,10 @@ const pickUpRequest = async(req,res)=>{
             parcel_category : "Paket",
             parcel_content : dataPackage.parcel_content,
             parcel_value : dataPackage.parcel_value,
-            merchant_code : config.merchant.code,
-            merchant_name : config.merchant.name,
-            merchant_phone : config.merchant.phone,
-            merchant_email : config.merchant.email
+            pickup_merchant_code : config.merchant.code,
+            pickup_merchant_name : config.merchant.name,
+            pickup_merchant_phone : config.merchant.phone,
+            pickup_merchant_email : config.merchant.email
         }
         console.log("ini paket",package)
         const response = hitThirdApi(url, package)
@@ -170,6 +169,11 @@ const listKelurahan = async(req,res)=>{
             data : result.data
         })
     })
+}
+
+const getDestinationCode = async(req,res)=>{
+
+
 }
 
 module.exports = {

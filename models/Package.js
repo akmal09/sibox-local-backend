@@ -103,6 +103,10 @@ Package.init(
                 type: DataTypes.STRING,
                 allowNull:false
             },
+            recipient_sub_district:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
             recipient_city:{
                 type: DataTypes.STRING,
                 allowNull:false
@@ -179,19 +183,19 @@ Package.init(
                 type: DataTypes.STRING,
                 allowNull:false
             },
-            merchant_code:{
+            pickup_merchant_code:{
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            merchant_name:{
+            pickup_merchant_name:{
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            merchant_phone:{
+            pickup_merchant_phone:{
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            merchant_email:{
+            pickup_merchant_email:{
                 type: DataTypes.STRING,
                 allowNull:true
             },
