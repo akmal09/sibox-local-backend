@@ -7,7 +7,7 @@ const routes = require("./routes/route");
 const app = express();
 const cron = require("node-cron")
 const {
-  syncPackage
+  syncPackage, tesPackage
 } = require("./controllers/packageController")
 
 app.use(express.json());
@@ -31,4 +31,5 @@ app.listen(PORT, (req, resp) => {
     syncPackage()
   })
   task.start()
+  tesPackage()
 });

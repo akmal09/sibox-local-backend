@@ -27,11 +27,9 @@ const getPackageNumber = async (req, res) => {
       },
     })
       .then((responseApi) => {
-        // console.log(packagesNumber.body.package_id)
         responseData.responseData.code = responseApi.data.response.code;
         responseData.responseData.latency = responseApi.data.response.latency;
         responseData.responseData.message = responseApi.data.response.message;
-        // console.log(responseApi.data)
         res.send({
           response: responseData.responseData,
           data: responseApi.data.data,
