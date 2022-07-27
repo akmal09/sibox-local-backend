@@ -31,5 +31,5 @@ app.listen(PORT, (req, resp) => {
     syncPackage()
   })
   task.start()
-  tesPackage()
+  // tesPackage()
 });

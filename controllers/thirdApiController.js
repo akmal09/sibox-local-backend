@@ -125,6 +125,7 @@ const pickUpRequest = async(req,res)=>{
             recipient_city : dataPackage.recipient_city,
             recipient_province : dataPackage.recipient_province,
             shipper_disrict : config.shipper_disrict,
+            shipper_disrict : config.shipper_disrict,
             shipper_city : config.shipper_city,
             shipper_province : config.shipper_province,
             shipper_zipcode : config.shipper_zipcode,
