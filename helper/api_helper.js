@@ -1,5 +1,6 @@
 const response = require("./response")
 const axios = require("axios");
+const config = require("../config/config");
 
 const hitApi = async (url, datapackage,isBroke) => {
     try{
@@ -126,6 +127,34 @@ const hitThirdApi = async(url, dataPackage)=>{
     }
 }
 
+const hitGetQr = async(url, dataPackage)=>{
+    try{
+        const response = await axios(url,{
+            method :  "POST",
+            headers:{
+                "Content-Type" : "application/json",
+                "X-Merchant-Id" : config.merchant.id
+            },
+            data:{
+                "token":dataPackage.token,
+                "tid":dataPackage.tid,
+                "mid":dataPackage.mid,
+                "provider":dataPackage.provider,
+                "method":dataPackage.method,
+                "amount":dataPackage.amount,
+                "reff_no":dataPackage.reff_no,
+                "partner_callback_url":dataPackage.partner_callback_url
+            }},
+            {
+                timeout:5000
+            }
+        )
+        return response.data;
+    }catch(error){
+        console.log(error)
+    }
+}
+
 const timeCall = (time, h)=>{
     console.log("sebelum ",time)
     time.setTime(time.getTime() + (h *60 * 60 * 1000))
@@ -140,5 +169,6 @@ module.exports = {
     hitCekTarif : hitCekTarif,
     hitCekAsuransi : hitCekAsuransi,
     hitThirdApi : hitThirdApi,
-    timeCall : timeCall
+    timeCall : timeCall,
+    hitgetQr : hitGetQr
 }

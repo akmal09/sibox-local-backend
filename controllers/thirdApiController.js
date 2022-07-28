@@ -1,5 +1,6 @@
+const { merchant } = require("../config/config");
 const config = require("../config/config");
-const { hitCekTarif, hitCekAsuransi, hitThirdApi, timeCall} = require("../helper/api_helper");
+const { hitCekTarif, hitCekAsuransi, hitThirdApi, timeCall, hitgetQr} = require("../helper/api_helper");
 // const { cekTarifRequest, responseData } = require("../helper/response");
 const { create_UUID, stringGenerator } = require("../helper/string_generator");
 const Box = require("../models/Box");
@@ -95,7 +96,7 @@ const pickUpRequest = async(req,res)=>{
     // console.log("nilai",tarif_insurance)
     const lockers = await Locker.findOne()
     const storeNumber = stringGenerator(13)
-    const validateCode = stringGenerator(13)
+    const validateCode = stringGenerator(6)
 
     if(selectFreeBox == null){
 
@@ -251,14 +252,42 @@ const listKelurahan = async(req,res)=>{
     })
 }
 
-const getDestinationCode = async(req,res)=>{
+const payGetQr = async(req,res)=>{
+    const url = "https://api-portal.multidaya.id/payment-gateway/v1/general-payment/order"
+    const lockers = await Locker.findOne()
+    const storeNumber = stringGenerator(13)
+    const data = {
+        "token":config.merchant.token,
+        "tid":lockers.id,
+        "mid":config.merchant.id,
+        "provider":config.merchant.provider,
+        "method":"get-qr",
+        "amount":req.body.amount,
+        "reff_no":storeNumber,
+        "partner_callback_url":"http//niaagustin.co.id/callback"
+    }
+    console.log(data.partner_callback_url)
+    const getQr = hitgetQr(url, data)
+    getQr.then(async (result) =>{
+        console.log(result)
+        if(result == undefined){
 
-
+        }else{
+            if(result.response.code == 200){
+                result.data.storeNumber = storeNumber
+                res.send({result})
+            }else{
+                console.log("ALERT, ERROR HOST",result)
+                res.send(result)
+            }
+        }
+    })
 }
 
 module.exports = {
     cekTarif,
     cekAsuransi,
     listKelurahan,
-    pickUpRequest
+    pickUpRequest,
+    payGetQr
 }
