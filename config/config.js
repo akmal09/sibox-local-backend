@@ -13,5 +13,6 @@ module.exports = {
   "shipper_zipcode":"11470",
   "timeUnder12":6,
   "timeAbove12":24,
-  "subdistrict":"11470",
+  "shipper_subdistrict":"Tomang",
 }
+

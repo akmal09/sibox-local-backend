@@ -27,10 +27,7 @@ Package.init(
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            pickup_request_date:{
-                type: DataTypes.DATE,
-                allowNull:false
-            },
+            
             package_type:{
                 type: DataTypes.STRING,
                 allowNull:false
@@ -62,11 +59,11 @@ Package.init(
             take_time:{
                 type: DataTypes.INTEGER,
                 allowNull:true
-            }, //stiing->format(time)
+            }, 
             store_time:{
                 type: DataTypes.INTEGER,
                 allowNull:false
-            }, //stiing->format(time)
+            }, 
             take_user_id:{
                 type: DataTypes.STRING,
                 allowNull:true
@@ -83,6 +80,10 @@ Package.init(
                 type: DataTypes.STRING,
                 allowNull:false
             },
+            store_user_phone:{
+                type: DataTypes.STRING,
+                allowNull:false
+            },
             staff_taken_user:{
                 type: DataTypes.STRING,
                 allowNull:true
@@ -91,62 +92,16 @@ Package.init(
                 type: DataTypes.STRING,
                 allowNull:false
             },
-            recipient_user_phone_number:{
+            recipient_phone_number:{
                 type: DataTypes.STRING,
                 allowNull:false
             },
-            recipient_address:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            recipient_district:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            recipient_sub_district:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            recipient_city:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            recipient_province:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            shipper_disrict:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            shipper_city:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            shipper_province:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            shipper_zipcode:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
+            
             courier_id:{
                 type: DataTypes.STRING,
                 allowNull:true
             },
-            destination_code:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            tarif:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            origin_code:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
+            
             start_address:{
                 type: DataTypes.STRING,
                 allowNull:false
@@ -158,47 +113,7 @@ Package.init(
             validate_code:{
                 type: DataTypes.CHAR(6),
                 allowNull:false
-            },
-            insurance:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            notes:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            delivery_type:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            parcel_category:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            parcel_content:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            parcel_value:{
-                type: DataTypes.STRING,
-                allowNull:false
-            },
-            pickup_merchant_code:{
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            pickup_merchant_name:{
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            pickup_merchant_phone:{
-                type: DataTypes.STRING,
-                allowNull:true
-            },
-            pickup_merchant_email:{
-                type: DataTypes.STRING,
-                allowNull:true
-            },
+                },
             import_time:{
                 type :"TIMESTAMP",
                 defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),

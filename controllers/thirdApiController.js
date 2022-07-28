@@ -6,6 +6,7 @@ const Box = require("../models/Box");
 const BoxType = require("../models/BoxType");
 const Locker = require("../models/Locker");
 const Package = require("../models/Package");
+const PackageCheckOut = require("../models/PackageCheckOut");
 
 const cekTarif = async(req,res)=>{
     const start = new Date()
@@ -79,20 +80,22 @@ const pickUpRequest = async(req,res)=>{
         const pickUpRequestTime = timeCall(time, config.timeUnder12)
         dataPackage.pickup_request_date = time.getTime()
     }
-
-    console.log("ini data tanggal", dataPackage.pickup_request_date)
+    
     const boxTypeId = await BoxType.findOne({where : {
         name : dataPackage.dimensi
-      }})
-    console.log("ini data asdasdbox", boxTypeId)
+    }})
 
     const selectFreeBox = await Box.findOne({where : {
       status : "FREE",
       box_type_id: boxTypeId.id
     }})
-    console.log("ini data box", selectFreeBox)
+    // console.log("ini data box", selectFreeBox)
 
+    const tarif_insurance = (dataPackage.tarif+dataPackage.insurance)
+    // console.log("nilai",tarif_insurance)
     const lockers = await Locker.findOne()
+    const storeNumber = stringGenerator(13)
+    const validateCode = stringGenerator(13)
 
     if(selectFreeBox == null){
 
@@ -101,7 +104,7 @@ const pickUpRequest = async(req,res)=>{
             id : dataPackage.id,
             e_commerces_id : null, //
             logistics_id : dataPackage.logistics_id, //
-            customer_store_number : null,
+            customer_store_number : storeNumber,
             package_number : null,
             pickup_request_date : dataPackage.pickup_request_date,
             package_type : "STORED",
@@ -118,23 +121,25 @@ const pickUpRequest = async(req,res)=>{
             store_user_name : dataPackage.store_user_name,
             staff_taken_user : null,
             recipient_name : dataPackage.recipient_name,
-            recipient_user_phone_number : dataPackage.recipient_user_phone_number,
-            recipient_address : dataPackage.recipient_address,
+            recipient_phone : dataPackage.recipient_phone,
+            end_address : dataPackage.end_address,
             recipient_district : dataPackage.recipient_district,
-            recipient_sub_district : config.subdistrict,
+            recipient_subdistrict : dataPackage.recipient_subdistrict,
             recipient_city : dataPackage.recipient_city,
             recipient_province : dataPackage.recipient_province,
-            shipper_disrict : config.shipper_disrict,
-            shipper_disrict : config.shipper_disrict,
+            shipper_address : config.start_address,
+            shipper_district : config.shipper_disrict,
+            shipper_subdistrict : config.shipper_disrict,
             shipper_city : config.shipper_city,
             shipper_province : config.shipper_province,
             shipper_zipcode : config.shipper_zipcode,
-            courier_id : dataPackage.courier_id,
+            shipper_phone : dataPackage.shipper_phone,
+            courier_id : null,
             destination_code : dataPackage.destination_code,
             tarif : dataPackage.tarif,
+            tarif_insurance : tarif_insurance.toString(),
             origin_code : config.origin_code,
             start_address : config.start_address,
-            end_address : dataPackage.end_address,
             validate_code : stringGenerator(6),
             insurance : dataPackage.insurance,
             notes : dataPackage.notes,
@@ -142,20 +147,94 @@ const pickUpRequest = async(req,res)=>{
             parcel_category : "Paket",
             parcel_content : dataPackage.parcel_content,
             parcel_value : dataPackage.parcel_value,
+            origin_code : config.origin_code,
             pickup_merchant_code : config.merchant.code,
             pickup_merchant_name : config.merchant.name,
             pickup_merchant_phone : config.merchant.phone,
             pickup_merchant_email : config.merchant.email
         }
-        console.log("ini paket",package)
+        // console.log("ini paket",package)
         const response = hitThirdApi(url, package)
         response.then(async (result) =>{
-            res.send(result)
-        })
+            if(result == undefined){
+                console.log("ALERT, ERROR HOST",result)
+            }else{
+                console.log(result)
+                if(result.response.code == 200){
+                    // Create Package
+                     await Package.create({
+                        id : package.id,
+                        e_commerces_id : package.e_commerces_id,
+                        logistics_id : package.logistics_id,
+                        customer_store_number : package.customer_store_number,
+                        package_number : null,
+                        package_type : package.delivery_type,
+                        overdue_time : package.overdue_time,
+                        lockers_id : lockers.id,
+                        boxes_id : selectFreeBox.id,
+                        status : package.status,
+                        sync_flag : package.sync_flag,
+                        weight : package.weight,
+                        take_time : null,
+                        store_time : package.store_time,
+                        take_user_id : null,
+                        store_user_id : package.store_user_id,
+                        take_user_name : null,
+                        store_user_name : package.store_user_name,
+                        store_user_phone : package.shipper_phone,
+                        staff_taken_user : null,
+                        recipient_name : package.recipient_name,
+                        recipient_phone_number : package.recipient_phone,
+                        courier_id : null,
+                        start_address : package.start_address,
+                        end_address : package.end_address,
+                        validate_code : validateCode,
+                        import_time : null,
+                        last_modified_time : null
+                     })
 
-        // await Package.create(package).then(result => {
-        //     console.log("BERHASIL")
-        // })
+                     await PackageCheckOut.create({
+                        id : create_UUID(),
+                        packages_id : package.id,
+                        airway_bill : result.data.data.awb,
+                        ref_id : result.data.data.refid,
+                        pickup_request_date : dataPackage.pickup_request_date,
+                        recipient_user_phone_number : package.recipient_phone,
+                        recipient_address : package.end_address,
+                        recipient_district : package.recipient_district,
+                        recipient_sub_district : package.recipient_subdistrict,
+                        recipient_city : package.recipient_city,
+                        recipient_province : package.recipient_province,
+                        shipper_disrict : package.shipper_district,
+                        shipper_city : package.shipper_city,
+                        shipper_province : package.shipper_province,
+                        shipper_zipcode : package.shipper_zipcode,
+                        destination_code : package.destination_code,
+                        tarif : package.tarif,
+                        origin_code : package.origin_code,
+                        insurance : package.insurance,
+                        notes : package.notes,
+                        delivery_type : package.delivery_type,
+                        parcel_category : package.parcel_category,
+                        parcel_content : package.parcel_content,
+                        parcel_value : package.parcel_value,
+                        pickup_merchant_code : package.pickup_merchant_code,
+                        pickup_merchant_name : package.pickup_merchant_name,
+                        pickup_merchant_phone : package.pickup_merchant_phone,
+                        pickup_merchant_email : package.pickup_merchant_email
+                    })
+                    await Box.findOne({where : {id:selectFreeBox.id}}).then((item)=>{
+                        item.update({
+                            status : "USED"
+                        })
+                    })
+                    res.send(result)
+                }else{
+                    console.log("ALERT, ERROR HOST",result)
+                    res.send(result)
+                }
+            }}    
+        )
     }
 }
 
