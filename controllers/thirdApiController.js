@@ -275,13 +275,24 @@ const payGetQr = async(req,res)=>{
         }else{
             if(result.response.code == 200){
                 result.data.storeNumber = storeNumber
-                res.send({result})
+                res.send({
+                    "response" : result.response,
+                    "data" : result.data
+                })
             }else{
                 console.log("ALERT, ERROR HOST",result)
-                res.send(result)
+                res.send({
+                        "response" : result.response,
+                        "data" : result.data
+                })
             }
         }
     })
+}
+
+const checkQrStatus = async(req,res)=>{
+    const url = "https://api-portal.multidaya.id/payment-gateway/v1/general-payment/status"
+
 }
 
 module.exports = {
@@ -289,5 +300,6 @@ module.exports = {
     cekAsuransi,
     listKelurahan,
     pickUpRequest,
-    payGetQr
+    payGetQr,
+    checkQrStatus
 }
