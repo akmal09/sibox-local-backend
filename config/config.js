@@ -1,9 +1,11 @@
 module.exports = {
   "merchant":{
+    "id":"bcdsasri",
     "code":"asdas",
     "name":"asdasdaas",
     "phone":"asdasdaas",
-    "email":"asdasdaas"
+    "email":"asdasdaas",
+    "token":"alnfjn13412093nas"
   },
   "start_address":"Jl Tawakal Raya No. 123 Tomang, Grogol Petamburan",
   "origin_code":"CGK",
