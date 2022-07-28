@@ -275,6 +275,7 @@ const payGetQr = async(req,res)=>{
         }else{
             if(result.response.code == 200){
                 result.data.storeNumber = storeNumber
+                result.data.token = config.merchant.token
                 res.send({
                     "response" : result.response,
                     "data" : result.data
