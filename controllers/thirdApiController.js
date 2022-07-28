@@ -1,6 +1,6 @@
 const { merchant } = require("../config/config");
 const config = require("../config/config");
-const { hitCekTarif, hitCekAsuransi, hitThirdApi, timeCall, hitgetQr} = require("../helper/api_helper");
+const { hitCekTarif, hitCekAsuransi, hitThirdApi, timeCall, hitgetQr, hitCheckPaymentStatus} = require("../helper/api_helper");
 // const { cekTarifRequest, responseData } = require("../helper/response");
 const { create_UUID, stringGenerator } = require("../helper/string_generator");
 const Box = require("../models/Box");
@@ -292,7 +292,26 @@ const payGetQr = async(req,res)=>{
 
 const checkQrStatus = async(req,res)=>{
     const url = "https://api-portal.multidaya.id/payment-gateway/v1/general-payment/status"
-
+    const data = req.body
+    const checkQrStatus = hitCheckPaymentStatus(url, data)
+    checkQrStatus.then(async (result) =>{
+        console.log(result)
+        if(result.response.code == 200 && result.data.status == "PAID"){
+            res.send({
+                "response" : result.response,
+                "data" : {
+                    "status" : result.data.status,
+                    "trx_id" : result.data.trx_id,
+                    "trx_type" : result.data.trx_type
+                }
+            })
+        }else{
+            res.send({
+                "response" : result.response,
+                "data" : result.data
+            })
+        }
+    })
 }
 
 module.exports = {

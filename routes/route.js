@@ -21,7 +21,7 @@ const {
 } = require("../controllers/machineController")
 
 const{
-    cekTarif, cekAsuransi, listKelurahan, pickUpRequest, payGetQr
+    cekTarif, cekAsuransi, listKelurahan, pickUpRequest, payGetQr, checkQrStatus
 } = require("../controllers/thirdApiController")
 
 const router = express.Router();
@@ -49,6 +49,7 @@ router.post("/list-kelurahan", listKelurahan)
 router.post("/pickup-request", pickUpRequest)
 router.post("/courier-data", getCourierData)
 router.post("/get-qr", payGetQr)
+router.post("/check-qr-status", checkQrStatus)
 
 
 module.exports = {

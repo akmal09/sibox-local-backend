@@ -155,6 +155,32 @@ const hitGetQr = async(url, dataPackage)=>{
     }
 }
 
+const hitCheckPaymentStatus = async(url, dataPackage)=>{
+    try{
+        const response = await axios(url,{
+            method :  "POST",
+            headers:{
+                "Content-Type" : "application/json",
+                "X-Merchant-Id" : config.merchant.id
+            },
+            data:{
+                "token":dataPackage.token,  
+                "tid" :dataPackage.tid,
+                "mid" :dataPackage.mid,
+                "provider":dataPackage.provider,
+                "amount":dataPackage.amount,
+                "trx_id":dataPackage.trx_id           
+            }},
+            {
+                timeout:5000
+            }
+        )
+        return response.data;
+    }catch(error){
+        console.log(error)
+    }
+}
+
 const timeCall = (time, h)=>{
     console.log("sebelum ",time)
     time.setTime(time.getTime() + (h *60 * 60 * 1000))
@@ -170,5 +196,6 @@ module.exports = {
     hitCekAsuransi : hitCekAsuransi,
     hitThirdApi : hitThirdApi,
     timeCall : timeCall,
-    hitgetQr : hitGetQr
+    hitgetQr : hitGetQr,
+    hitCheckPaymentStatus : hitCheckPaymentStatus
 }
