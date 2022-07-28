@@ -23,6 +23,10 @@ Package.init(
                 type: DataTypes.STRING,
                 allowNull:true
             },
+            trx_id:{
+                type: DataTypes.STRING,
+                allowNull:true
+            },
             package_number:{
                 type: DataTypes.STRING,
                 allowNull:true

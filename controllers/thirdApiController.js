@@ -168,6 +168,7 @@ const pickUpRequest = async(req,res)=>{
                         e_commerces_id : package.e_commerces_id,
                         logistics_id : package.logistics_id,
                         customer_store_number : package.customer_store_number,
+                        trx_id : dataPackage.trx_id,
                         package_number : null,
                         package_type : package.delivery_type,
                         overdue_time : package.overdue_time,

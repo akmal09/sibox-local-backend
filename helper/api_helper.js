@@ -167,7 +167,7 @@ const hitCheckPaymentStatus = async(url, dataPackage)=>{
                 "token":dataPackage.token,  
                 "tid" :dataPackage.tid,
                 "mid" :dataPackage.mid,
-                "provider":dataPackage.provider,
+                "provider":config.merchant.provider,
                 "amount":dataPackage.amount,
                 "trx_id":dataPackage.trx_id           
             }},
