@@ -8,6 +8,7 @@ const BoxType = require("../models/BoxType");
 const Locker = require("../models/Locker");
 const Package = require("../models/Package");
 const PackageCheckOut = require("../models/PackageCheckOut");
+const TransactionRecord = require("../models/TransactionRecord");
 
 const cekTarif = async(req,res)=>{
     const start = new Date()
@@ -74,10 +75,13 @@ const pickUpRequest = async(req,res)=>{
     dataPackage.customer_store_number = create_UUID()
     const currentTime = new Date()
 
-    if(time > 12){
+    if(time >= 9 && time<12){
         const pickUpRequestTime = timeCall(time, config.timeAbove12)
         dataPackage.pickup_request_date = time.getTime()
-    }else{
+    }else if(time>=12 && time<15){
+
+    }
+    else{
         const pickUpRequestTime = timeCall(time, config.timeUnder12)
         dataPackage.pickup_request_date = time.getTime()
     }
@@ -154,7 +158,7 @@ const pickUpRequest = async(req,res)=>{
             pickup_merchant_phone : config.merchant.phone,
             pickup_merchant_email : config.merchant.email
         }
-        // console.log("ini paket",package)
+        // console.log("ini paket",package.id)
         const response = hitThirdApi(url, package)
         response.then(async (result) =>{
             if(result == undefined){
@@ -230,6 +234,14 @@ const pickUpRequest = async(req,res)=>{
                             status : "USED"
                         })
                     })
+                    await TransactionRecord.create({
+                        id : dataPackage.trx_id,
+                        amount : tarif_insurance,
+                        payment_type : dataPackage.trx_type,
+                        transaction_type : "linkaja",
+                        package_id : package.id,
+                        box_id : selectFreeBox.id
+                    })
                     res.send(result)
                 }else{
                     console.log("ALERT, ERROR HOST",result)
@@ -238,19 +250,6 @@ const pickUpRequest = async(req,res)=>{
             }}    
         )
     }
-}
-
-const listKelurahan = async(req,res)=>{
-    const url = "http://127.0.0.1:8000/api/list-sub-district"
-    const data = req.body
-    var response = hitThirdApi(url, data)
-    response.then(async (result) =>{
-        console.log(result)
-        res.send({
-            response : result.response,
-            data : result.data
-        })
-    })
 }
 
 const payGetQr = async(req,res)=>{
@@ -300,11 +299,7 @@ const checkQrStatus = async(req,res)=>{
         if(result.response.code == 200 && result.data.status == "PAID"){
             res.send({
                 "response" : result.response,
-                "data" : {
-                    "status" : result.data.status,
-                    "trx_id" : result.data.trx_id,
-                    "trx_type" : result.data.trx_type
-                }
+                "data" : result.data
             })
         }else{
             res.send({
@@ -315,11 +310,65 @@ const checkQrStatus = async(req,res)=>{
     })
 }
 
+const listProvince = async(req, res)=>{
+    const url = "http://127.0.0.1:8000/api/list-province"
+    var response = hitThirdApi(url, data={})
+    response.then(async (result) =>{
+        console.log(result)
+        res.send({
+            response : result.response,
+            data : result.data
+        })
+    })
+}
+
+const listCity = async(req, res)=>{
+    const url = "http://127.0.0.1:8000/api/list-city"
+    const data = req.body
+    var response = hitThirdApi(url, data)
+    response.then(async (result) =>{
+        console.log(result)
+        res.send({
+            response : result.response,
+            data : result.data
+        })
+    })
+}
+
+const listKecamatan = async(req, res)=>{
+    const url = "http://127.0.0.1:8000/api/list-district"
+    const data = req.body
+    var response = hitThirdApi(url, data)
+    response.then(async (result) =>{
+        console.log(result)
+        res.send({
+            response : result.response,
+            data : result.data
+        })
+    })
+}
+
+const listKelurahan = async(req,res)=>{
+    const url = "http://127.0.0.1:8000/api/list-sub-district"
+    const data = req.body
+    var response = hitThirdApi(url, data)
+    response.then(async (result) =>{
+        console.log(result)
+        res.send({
+            response : result.response,
+            data : result.data
+        })
+    })
+}
+
 module.exports = {
     cekTarif,
     cekAsuransi,
-    listKelurahan,
     pickUpRequest,
     payGetQr,
-    checkQrStatus
+    checkQrStatus,
+    listProvince,
+    listCity,
+    listKecamatan,
+    listKelurahan
 }

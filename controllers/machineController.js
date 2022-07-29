@@ -1,4 +1,4 @@
-const { hitApi } = require("../helper/api_helper")
+const { hitApi,hitGetLockersData } = require("../helper/api_helper")
 const Box = require("../models/Box")
 const BoxType = require("../models/BoxType")
 const Locker = require("../models/Locker")
@@ -11,7 +11,7 @@ const initLocker = async(req,res)=>{
     // nama locker : Sibox Apt Greenvile Sunter
     // console.log(dataLocker)
 
-    const lockersData = hitApi(url, dataLocker)
+    const lockersData = hitGetLockersData(url, dataLocker)
     lockersData.then(async(result)=>{
         if(result.response.code == 200){
             const lockers = {

@@ -13,13 +13,13 @@ TransactionRecord.init(
             unique: true
         },
         amount:{
-            type:DataTypes.BIGINT
+            type:DataTypes.INTEGER
         },
         payment_type:{
             type:DataTypes.STRING
         },
         transaction_type:{
-            type:DataTypes.STRING
+            type:DataTypes.STRING //default : "cash"
         },
         package_id:{
             type:DataTypes.STRING

@@ -1,15 +1,34 @@
 const response = require("./response")
 const axios = require("axios");
 const config = require("../config/config");
+const Locker = require("../models/Locker");
 
-const hitApi = async (url, datapackage,isBroke) => {
+const terminaIdentifier = async ()=>{
+    const lockers = await Locker.findOne()
+    console.log("ini loker", lockers.id)
+    // lockers.then((result)=>{
+    //     if(result == null){
+    //         return null
+    //     }else{
+    //         return result.id
+    //     }
+    // })
+    if(lockers == null){
+        return null
+    }else{
+        return lockers.id
+    }
+}
+
+const hitApi = async (url, datapackage) => {
+    const lockers = await Locker.findOne()
     try{
         var response = await axios(url,{
             method :  "POST",
             headers:{
                 "Content-Type" : "application/json",
-                "x_terminal_id" : "212312",
-                "x_token" : "se12jsnpo"
+                "x_terminal_id" : lockers.id,
+                "x_token" : config.merchant.token
             },
             data:{
                 "package_number":datapackage.package_number,
@@ -39,11 +58,33 @@ const hitLocker = async(url, box_number)=>{
             method: "POST",
             data: {
                 "cmd":"open",
-                "param":5
+                "param":box_number
             }
         })
 
         return response
+    }catch(error){
+        console.log(error)
+    }
+}
+
+const hitGetLockersData = async(url, datapackage)=>{
+    try{
+        var response = await axios(url,{
+            method :  "POST",
+            headers:{
+                "Content-Type" : "application/json",
+                "x_terminal_id" : datapackage.lockers_id,
+                "x_token" : config.merchant.token
+            },
+            data:{
+                "lockers_id":datapackage.lockers_id,
+            }},
+            {
+                timeout:5000
+            }
+        )
+        return response.data;
     }catch(error){
         console.log(error)
     }
@@ -60,13 +101,14 @@ const isBroke = {
 }
 
 const hitCekTarif = async(url, dataPackage)=>{
+    const lockers = await Locker.findOne()
     try{
         const response = await axios(url,{
             method :  "POST",
             headers:{
                 "Content-Type" : "application/json",
-                "x_terminal_id" : "212312",
-                "x_token" : "se12jsnpo"
+                "x_terminal_id" : lockers.id,
+                "x_token" : config.merchant.token
             },
             data:{
                 "province" : dataPackage.province,
@@ -85,13 +127,14 @@ const hitCekTarif = async(url, dataPackage)=>{
 }
 
 const hitCekAsuransi= async(url, dataPackage)=>{
+    const lockers = await Locker.findOne()
     try{
         const response = await axios(url,{
             method :  "POST",
             headers:{
                 "Content-Type" : "application/json",
-                "x_terminal_id" : "212312",
-                "x_token" : "se12jsnpo"
+                "x_terminal_id" : lockers.id,
+                "x_token" : config.merchant.token
             },
             data:{
                 "parcel_value" : dataPackage.parcel_value
@@ -107,13 +150,14 @@ const hitCekAsuransi= async(url, dataPackage)=>{
 }
 
 const hitThirdApi = async(url, dataPackage)=>{
+    const lockers = await Locker.findOne()
     try{
         const response = await axios(url,{
             method :  "POST",
             headers:{
                 "Content-Type" : "application/json",
-                "x_terminal_id" : "212312",
-                "x_token" : "se12jsnpo"
+                "x_terminal_id" : lockers.id,
+                "x_token" : config.merchant.token
             },
             data:{dataPackage}
         },
@@ -127,7 +171,7 @@ const hitThirdApi = async(url, dataPackage)=>{
     }
 }
 
-const hitGetQr = async(url, dataPackage)=>{
+const hitGetQr = async(url, dataPackage)=>{    
     try{
         const response = await axios(url,{
             method :  "POST",
@@ -188,8 +232,15 @@ const timeCall = (time, h)=>{
     return time
 }
 
+const test = async ()=>{
+    // console.log("coba test", terminaIdentifier());
+    const terminal = await terminaIdentifier()
+    console.log("terminal", terminal)
+}
+
 module.exports = {
     hitApi : hitApi,
+    hitGetLockersData : hitGetLockersData,
     hitLocker : hitLocker,
     isBrokeResponse : isBroke,
     hitCekTarif : hitCekTarif,
@@ -197,5 +248,6 @@ module.exports = {
     hitThirdApi : hitThirdApi,
     timeCall : timeCall,
     hitgetQr : hitGetQr,
-    hitCheckPaymentStatus : hitCheckPaymentStatus
+    hitCheckPaymentStatus : hitCheckPaymentStatus,
+    test : test
 }
