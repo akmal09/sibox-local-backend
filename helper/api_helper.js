@@ -6,13 +6,7 @@ const Locker = require("../models/Locker");
 const terminaIdentifier = async ()=>{
     const lockers = await Locker.findOne()
     console.log("ini loker", lockers.id)
-    // lockers.then((result)=>{
-    //     if(result == null){
-    //         return null
-    //     }else{
-    //         return result.id
-    //     }
-    // })
+
     if(lockers == null){
         return null
     }else{

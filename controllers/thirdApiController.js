@@ -12,7 +12,7 @@ const TransactionRecord = require("../models/TransactionRecord");
 
 const cekTarif = async(req,res)=>{
     const start = new Date()
-    const url = "http://127.0.0.1:8000/api/cek-tarif"
+    const url = "http://192.168.7.188:8000/api/cek-tarif"
     const data = req.body
 
     cekTarifRequest.province = data.province
@@ -42,7 +42,7 @@ const cekTarif = async(req,res)=>{
 }
 
 const cekAsuransi = async(req,res)=>{
-    const url = "http://127.0.0.1:8000/api/cek-asuransi"
+    const url = "http://192.168.7.188:8000/api/cek-asuransi"
     const data = req.body
     var response = hitCekAsuransi(url, data)
     response.then(async (result) =>{
@@ -68,7 +68,7 @@ const cekAsuransi = async(req,res)=>{
 const pickUpRequest = async(req,res)=>{
     const time = new Date()
     
-    const url = "http://127.0.0.1:8000/api/send/pickup-request"
+    const url = "http://192.168.7.188:8000/api/send/pickup-request"
     const dataPackage = req.body
     dataPackage.id = create_UUID()
     dataPackage.store_user_id = create_UUID()
@@ -156,9 +156,10 @@ const pickUpRequest = async(req,res)=>{
             pickup_merchant_code : config.merchant.code,
             pickup_merchant_name : config.merchant.name,
             pickup_merchant_phone : config.merchant.phone,
-            pickup_merchant_email : config.merchant.email
+            pickup_merchant_email : config.merchant.email,
+            validate_code : validateCode
         }
-        // console.log("ini paket",package.id)
+
         const response = hitThirdApi(url, package)
         response.then(async (result) =>{
             if(result == undefined){
@@ -311,8 +312,9 @@ const checkQrStatus = async(req,res)=>{
 }
 
 const listProvince = async(req, res)=>{
-    const url = "http://127.0.0.1:8000/api/list-province"
+    const url = "http://192.168.7.188:8000/api/list-province"
     var response = hitThirdApi(url, data={})
+    console.log(response);
     response.then(async (result) =>{
         console.log(result)
         res.send({
@@ -323,7 +325,7 @@ const listProvince = async(req, res)=>{
 }
 
 const listCity = async(req, res)=>{
-    const url = "http://127.0.0.1:8000/api/list-city"
+    const url = "http://192.168.7.188:8000/api/list-city"
     const data = req.body
     var response = hitThirdApi(url, data)
     response.then(async (result) =>{
@@ -336,7 +338,7 @@ const listCity = async(req, res)=>{
 }
 
 const listKecamatan = async(req, res)=>{
-    const url = "http://127.0.0.1:8000/api/list-district"
+    const url = "http://192.168.7.188:8000/api/list-district"
     const data = req.body
     var response = hitThirdApi(url, data)
     response.then(async (result) =>{
@@ -349,7 +351,7 @@ const listKecamatan = async(req, res)=>{
 }
 
 const listKelurahan = async(req,res)=>{
-    const url = "http://127.0.0.1:8000/api/list-sub-district"
+    const url = "http://192.168.7.188:8000/api/list-sub-district"
     const data = req.body
     var response = hitThirdApi(url, data)
     response.then(async (result) =>{
